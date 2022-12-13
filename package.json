@@ -1,0 +1,39 @@
+{
+  "name": "coding-with-chrome-lib",
+  "description": "Coding with Chrome Libraries",
+  "version": "0.0.1",
+  "author": "Markus Bordihn (mbordihn@google.com)",
+  "license": "Apache-2.0",
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "closure-builder": "^2.3.8",
+    "command-line-usage": "^5.0.5",
+    "eslint": "^4.19.1",
+    "eslint-config-google": "^0.9.1",
+    "jasmine-core": "^3.4.0",
+    "jsdoc": "^3.6.3",
+    "jsdoc-to-markdown": "^4.0.1",
+    "karma": "^4.3.0",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^1.1.2",
+    "karma-jasmine": "^1.1.2",
+    "karma-mocha-reporter": "^2.2.5",
+    "markdownlint": "^0.8.1",
+    "markdownlint-cli": "^0.8.1"
+  },
+  "scripts": {
+    "lint": "npm run lint-javascript && npm run lint-markdown",
+    "lint-javascript": "eslint .",
+    "lint-markdown": "markdownlint doc/ training/ *.md src/**/*.md",
+    "lint-closure": "node build/lint.js",
+    "depswriter": "python third_party/closure-library/closure/bin/build/depswriter.py --root_with_prefix=\"src/ ../../../../src/\" > src/deps.js",
+    "pretest": "npm run lint && npm run depswriter",
+    "test": "echo Starting tests ... && karma start src/tests.conf",
+    "sync": "echo Syncing. Please wait ... && git pull && git submodule init && git submodule update && npm run update",
+    "clean": "echo Cleaning up npm files. Please wait ... && npm prune",
+    "preupdate": "npm run clean",
+    "update": "npm install && npm update -a && npm dedupe",
+    "postupdate": "npm test"
+  }
+}
